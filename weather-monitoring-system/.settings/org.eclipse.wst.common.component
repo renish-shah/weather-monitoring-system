@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="weather-monitoring-system">
+        <wb-resource deploy-path="/" source-path="/ejbModule"/>
+        <property name="java-output-path" value="/weather-monitoring-system/build/classes"/>
+        <property name="ClientProject" value="weather-monitoring-systemClient"/>
+        <property name="ClientJARURI" value="weather-monitoring-systemClient.jar"/>
+    </wb-module>
+</project-modules>
