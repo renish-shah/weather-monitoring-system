@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Date;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -29,7 +30,11 @@ public class DownloadData {
 	 */
 	public static void main(String[] args) {
 
-		new DownloadData().downloadData();
+		DownloadData data=new DownloadData();
+		
+		data.downloadData();
+		data.extractData();
+		
 		/*
 		 * try { URL u = new
 		 * URL("http://mesowest.utah.edu/data/mesowest.out.gz"); InputStream is
@@ -60,7 +65,8 @@ public class DownloadData {
 			URLConnection con = url.openConnection();
 			BufferedInputStream in = new BufferedInputStream(
 					con.getInputStream());
-			FileOutputStream out = new FileOutputStream("E://Test//mesowest.out.gz");
+			FileOutputStream out = new FileOutputStream(
+					"E://Test//mesowest.out.gz");
 
 			int i = 0;
 			byte[] bytesIn = new byte[3000000];
@@ -80,7 +86,7 @@ public class DownloadData {
 
 		try {
 
-			String inFilename = "mesowest.out.gz";
+			String inFilename = "E://Test//mesowest.out.gz";
 			System.out.println("Opening the gzip file....:  opened");
 
 			GZIPInputStream gzipInputStream = null;
@@ -89,12 +95,16 @@ public class DownloadData {
 					inFilename));
 			System.out.println("Opening the output file...: opened");
 
-			// String outFilename = inFilename + ".out";
+			String dateTime = "" + new Date();
+			dateTime = dateTime.replaceAll(":", "");
 
 			String outFilename = inFilename.substring(0,
-					inFilename.length() - 2);
+					inFilename.length() - 7) + "_" + dateTime + ".out";
+			
+//			String outFilename="E://Test//mesowest_renish.out";
 
 			OutputStream out = new FileOutputStream(outFilename);
+
 			System.out
 					.println("Transferring bytes from the compressed file to the output file........:Transfer successful");
 			byte[] buf = new byte[1024]; // size can be changed according to
@@ -105,6 +115,9 @@ public class DownloadData {
 			}
 			System.out
 					.println("The file and stream is ......closing.......... : closed");
+			
+			
+			
 			gzipInputStream.close();
 			out.close();
 		} catch (Exception e) {
