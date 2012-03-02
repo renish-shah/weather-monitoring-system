@@ -34,6 +34,8 @@ public class FileRead {
 
 	public void retrieveData() {
 
+		setupDB();
+		
 		BasicDBObject time = new BasicDBObject();
 		time.put("time.HHMM", "1830");
 		time.put("YYMMDD", "20120201");
@@ -44,9 +46,13 @@ public class FileRead {
 		FileOutputStream fo = setupEnvToWrite();
 		PrintStream ps = new PrintStream(fo);
 
+		ps.print('{');
+		int count = 1;
 		while (cur.hasNext()) {
-			ps.println(cur.next());
+			ps.println("\"output" + count +"\":"+ cur.next()+",");
+			count++;
 		}
+		ps.println("\"output0\": \"\"}");
 
 		try {
 			ps.close();
@@ -81,7 +87,7 @@ public class FileRead {
 	public void insertIntoDB() {
 
 		try {
-			
+
 			setupDB();
 
 			// Open the file
@@ -138,6 +144,9 @@ public class FileRead {
 				time.put("stationId", stationId);
 				date.put("time", time);
 
+				// BasicDBObject outputData = new BasicDBObject();
+				// outputData.put("outputData", date);
+
 				coll.insert(date);
 
 			}
@@ -155,8 +164,8 @@ public class FileRead {
 
 	public static void main(String[] args) {
 
-		new FileRead().insertIntoDB();
-		
+		new FileRead().retrieveData();
+
 		// Sample JSON
 
 		/*
@@ -170,7 +179,7 @@ public class FileRead {
 		 * 
 		 * }
 		 */
-		
+
 		// Find through Console (Shell)
 		// msTemporal.find({"YYMMDD":"20120201","time.HHMM":"1815","time.HHMM":"1830"});
 
