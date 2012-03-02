@@ -46,6 +46,14 @@ public class FileRead {
 		FileOutputStream fo = setupEnvToWrite();
 		PrintStream ps = new PrintStream(fo);
 
+		//Sample Output
+//		{
+//		    "output1": {},
+//		    "output2": {},
+//		    "output0": ""
+//		}
+
+		
 		ps.print('{');
 		int count = 1;
 		while (cur.hasNext()) {
