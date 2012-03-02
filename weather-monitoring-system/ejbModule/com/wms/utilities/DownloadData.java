@@ -1,6 +1,8 @@
 package com.wms.utilities;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,43 +32,39 @@ public class DownloadData {
 	 */
 	public static void main(String[] args) {
 
-		DownloadData data=new DownloadData();
-		
-		data.downloadData();
-		data.extractData();
-		
-		/*
-		 * try { URL u = new
-		 * URL("http://mesowest.utah.edu/data/mesowest.out.gz"); InputStream is
-		 * = u.openStream(); InputStreamReader isr = new InputStreamReader(is);
-		 * BufferedReader br = new BufferedReader(isr); String theLine; while
-		 * ((theLine = br.readLine()) != null) { System.out.println(theLine); }
-		 * } catch (MalformedURLException ex) { System.err.println(ex); } catch
-		 * (IOException ex) { System.err.println(ex); }
-		 */
+		DownloadData data = new DownloadData();
 
-		/*
-		 * URL google;
-		 * 
-		 * google = new URL("http://mesowest.utah.edu/data/mesowest.out.gz");
-		 * 
-		 * ReadableByteChannel rbc = Channels.newChannel(google.openStream());
-		 * FileOutputStream fos = new FileOutputStream(rbc); } catch
-		 * (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
+		String link = "http://mesowest.utah.edu/data/mesowest.out.gz";
+
+		String[] fileNameWithExtension = link.split("/");
+		String newName = fileNameWithExtension[fileNameWithExtension.length - 1];
+		System.out.println("" + newName);
+
+		String[] fileName = newName.split("\\.");
+		System.out.println(fileName[0]);
+
+		data.downloadData(fileName[0]);
+		data.extractData();
 
 	}
 
-	public void downloadData() {
+	public void downloadData(String outputFileName) {
 		try {
 
+			String envVar = System.getenv("JAVA_HOME");
+			// String environmentVariable="C:/Program Files/Java/jdk1.7.0";
+			System.out.print("Environment Variable is =>" + envVar);
+
+			String dir = envVar + "/WMS";
+			if (!(new File(dir)).exists())
+				new File(dir).mkdirs();
+
 			URL url = new URL("http://mesowest.utah.edu/data/mesowest.out.gz");
+
 			URLConnection con = url.openConnection();
 			BufferedInputStream in = new BufferedInputStream(
 					con.getInputStream());
-			FileOutputStream out = new FileOutputStream(
-					"E://Test//mesowest.out.gz");
+			FileOutputStream out = new FileOutputStream(dir+"/"+outputFileName);
 
 			int i = 0;
 			byte[] bytesIn = new byte[3000000];
@@ -86,11 +84,11 @@ public class DownloadData {
 
 		try {
 
-			String inFilename = "E://Test//mesowest.out.gz";
+			String inFilename = "E://Test//mnet_no.cgi";
 			System.out.println("Opening the gzip file....:  opened");
 
 			GZIPInputStream gzipInputStream = null;
-			FileInputStream fileInputStream = null;
+			// FileInputStream fileInputStream = null;
 			gzipInputStream = new GZIPInputStream(new FileInputStream(
 					inFilename));
 			System.out.println("Opening the output file...: opened");
@@ -100,8 +98,8 @@ public class DownloadData {
 
 			String outFilename = inFilename.substring(0,
 					inFilename.length() - 7) + "_" + dateTime + ".out";
-			
-//			String outFilename="E://Test//mesowest_renish.out";
+
+			// String outFilename="E://Test//mesowest_renish.out";
 
 			OutputStream out = new FileOutputStream(outFilename);
 
@@ -115,9 +113,7 @@ public class DownloadData {
 			}
 			System.out
 					.println("The file and stream is ......closing.......... : closed");
-			
-			
-			
+
 			gzipInputStream.close();
 			out.close();
 		} catch (Exception e) {
