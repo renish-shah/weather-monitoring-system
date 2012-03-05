@@ -9,15 +9,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 
-public class FileRead {
+public class ArchiveDBOperation {
 
 	private static final String WMS_TEMPORAL = "wmsTemporal";
 	static DB db = null;
@@ -32,13 +35,61 @@ public class FileRead {
 		}
 	}
 
-	public void retrieveData() {
+	public void testFunctionality() {
+		setupDB();
+
+		if (!db.collectionExists(WMS_TEMPORAL))
+			db.createCollection("WMS_TEMPORAL", null);
+
+		// DBCollection coll = db.getCollection("WMS_TEMPORAL");
+		DBCollection testRenish = db.getCollection("testRenish_1");
+
+		BasicDBObject name = new BasicDBObject();
+		name.put("name", "pray");
+		name.put("name", "binit");
+
+		testRenish.insert(name);
+
+	}
+
+	public void retrieveData(String startDate, String endDate,
+			String startTime, String endTime) {
 
 		setupDB();
 		
+		DateTimeUtility dateTimeUtility = new DateTimeUtility();
+		
+		List<String> listOfDates = new ArrayList<String>();
+		
+		
+		if (null != startDate && startDate != "" && null != endDate
+				&& endDate != "") {
+			if (!startDate.equals(endDate)) // both dates are different
+			{
+				listOfDates = dateTimeUtility
+						.getListOfDates(startDate, endDate);
+			} else {
+				listOfDates.add(startDate);
+			}
+		}
+		
+		// 2012-02-01 to 2012-03-04
 		BasicDBObject time = new BasicDBObject();
-		time.put("time.HHMM", "1830");
-		time.put("YYMMDD", "20120201");
+		// time.put("time.HH", "03");
+		// time.put("time.MM", "43");
+		// time.put("time.HHMM", "0400");
+		if(null==startTime || startTime.length()==0)
+			time.put("YYMMDD", new BasicDBObject("$in", listOfDates));
+		else if(null != endTime && endTime.length()>0)
+		{
+			List<String> listOfHours = new ArrayList<String>();
+			listOfHours=dateTimeUtility.getListOfHours(Integer.parseInt(startTime), Integer.parseInt(endTime));
+			time.put("time.HH", new BasicDBObject("$in", listOfHours));
+			time.put("YYMMDD", new BasicDBObject("$in", listOfDates));
+			
+			
+		}
+		// time.put("YYMMDD", "20120201");
 
 		DBCollection coll = db.getCollection(WMS_TEMPORAL);
 		DBCursor cur = coll.find(time);
@@ -46,18 +97,17 @@ public class FileRead {
 		FileOutputStream fo = setupEnvToWrite();
 		PrintStream ps = new PrintStream(fo);
 
-		//Sample Output
-//		{
-//		    "output1": {},
-//		    "output2": {},
-//		    "output0": ""
-//		}
+		// Sample Output
+		// {
+		// "output1": {},
+		// "output2": {},
+		// "output0": ""
+		// }
 
-		
 		ps.print('{');
 		int count = 1;
 		while (cur.hasNext()) {
-			ps.println("\"output" + count +"\":"+ cur.next()+",");
+			ps.println("\"output" + count + "\":" + cur.next() + ",");
 			count++;
 		}
 		ps.println("\"output0\": \"\"}");
@@ -100,7 +150,7 @@ public class FileRead {
 
 			// Open the file
 			FileInputStream fstream = new FileInputStream(
-					"F:\\SJSU_aCAdEMICS\\CMPE_275_JohnGash\\Data\\mesowest\\mesowest.out");
+					"F:\\SJSU_aCAdEMICS\\CMPE_275_JohnGash\\Data\\8.26\\mesowest.out\\mesowest.out");
 
 			// Get the object of DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
@@ -119,8 +169,11 @@ public class FileRead {
 			System.out.println("" + strLine);
 			String headers[] = strLine.split("\\|");
 
-			DBCollection coll = db.getCollection("WMS_TEMPORAL");
-			coll.remove(new BasicDBObject());
+			// if(!db.collectionExists(WMS_TEMPORAL))
+			// db.createCollection("WMS_TEMPORAL", null);
+
+			DBCollection coll = db.getCollection(WMS_TEMPORAL);
+			// coll.remove(new BasicDBObject());
 
 			long initTime = System.currentTimeMillis();
 			System.out.println("Init TIme :" + initTime);
@@ -137,8 +190,12 @@ public class FileRead {
 				date.put(dateTimeHeader[0], timeData[0]); // YYMMDD/HHMM
 															// 20120201/1900
 
-				BasicDBObject time = new BasicDBObject();
-				time.put(dateTimeHeader[1], timeData[1]);
+				BasicDBObject timeHour = new BasicDBObject();
+				timeHour.put("HH", timeData[1].substring(0, 2));
+				timeHour.put("MM", timeData[1].substring(2, 4));
+
+				// BasicDBObject timeMinute = new BasicDBObject();
+				// timeMinute.put("MM", timeData[1].substring(2, 4));
 
 				BasicDBObject stationId = new BasicDBObject();
 				stationId.put(headers[1], data[1]);
@@ -149,8 +206,10 @@ public class FileRead {
 				}
 
 				stationId.put("stationData", stationData);
-				time.put("stationId", stationId);
-				date.put("time", time);
+				// timeMinute.put("stationId", stationId);
+				// timeHour.put("minute", timeMinute);
+				timeHour.put("stationId", stationId);
+				date.put("time", timeHour);
 
 				// BasicDBObject outputData = new BasicDBObject();
 				// outputData.put("outputData", date);
@@ -172,8 +231,12 @@ public class FileRead {
 
 	public static void main(String[] args) {
 
-		new FileRead().retrieveData();
-
+		// new
+		// ArchiveDBOperation().retrieveData("20120304","20120304","0300","0800");
+		// new FileRead().testFunctionality();
+		// new ArchiveDBOperation().insertIntoDB();
+		new ArchiveDBOperation().retrieveData("20120304", "20120304", "03",
+				"08");
 		// Sample JSON
 
 		/*
