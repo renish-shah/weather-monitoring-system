@@ -86,7 +86,7 @@ public class CharityService {
 	 * Adds a new person
 	 */
 	public Charity create(Charity charity) {
-		logger.debug("Adding new person");
+		logger.debug("Adding new charity");
 
 		try {
 			// Find suitable id

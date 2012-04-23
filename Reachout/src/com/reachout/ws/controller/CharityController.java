@@ -5,8 +5,10 @@ package com.reachout.ws.controller;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +24,10 @@ import com.reachout.ws.service.PersonService;
  * 
  */
 @Controller
-public class ReachOutController {
+public class CharityController {
 
+	protected static Logger logger = Logger.getLogger("controller");
+	
 	@Resource(name = "charityService")
 	private CharityService charityService;
 
@@ -44,7 +48,7 @@ public class ReachOutController {
 			@PathVariable("charityId") Long charityId) {
 
 		// Call service here
-		CharityService charityService = new CharityService();
+		charityService = new CharityService();
 		return charityService.get(fromCommunityId, charityId);
 	}
 	
@@ -54,9 +58,19 @@ public class ReachOutController {
 			@PathVariable("charityId") Long charityId) {
 
 		// Call service here
-		CharityService charityService = new CharityService();
+		charityService = new CharityService();
 		return charityService.get(fromCommunityId, charityId);
 	}
 
+	@RequestMapping(value = "/charity", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	Charity createCharity(@RequestBody Charity charity) {
+		logger.debug("Provider has received request to add new Charity");
 
+		// Call service to here
+		charityService = new CharityService();
+		return charityService.create(charity);
+	}
+
+	
 }
