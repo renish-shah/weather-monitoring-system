@@ -3,6 +3,7 @@ package org.krams.tutorial.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.krams.tutorial.domain.Charity;
 import org.krams.tutorial.domain.Person;
 import org.springframework.stereotype.Service;
 
@@ -12,54 +13,60 @@ public class CharityService {
 	protected static Logger logger = Logger.getLogger("service");
 
 	// In-memory list
-	private List<Person> persons = new ArrayList<Person>();
+	private List<Charity> charities = new ArrayList<Charity>();
 
 	public CharityService() {
 		logger.debug("Init database");
 
 		// Create in-memory list
-		Person person1 = new Person();
-		person1.setId(0L);
-		person1.setFirstName("John");
-		person1.setLastName("Smith");
-		person1.setMoney(1000.0);
+		Charity charity1 = new Charity();
+		charity1.setId(0L);
+		charity1.setCreatedBy("john");
+		charity1.setDescription("sample");// LastName("Smith");
+		charity1.setFromCommunityId("BrainStormers");
+		charity1.setFromUserName("john.smith");
+		charity1.setName("donate");
 
-		Person person2 = new Person();
-		person2.setId(1L);
-		person2.setFirstName("Jane");
-		person2.setLastName("Adams");
-		person2.setMoney(2000.0);
+		Charity charity2 = new Charity();
+		charity2.setId(1L);
+		charity2.setCreatedBy("reeya");
+		charity2.setDescription("sample");// LastName("Smith");
+		charity2.setFromCommunityId("BrainStormers");
+		charity2.setFromUserName("john.smith");
+		charity2.setName("donate");
 
-		Person person3 = new Person();
-		person3.setId(2L);
-		person3.setFirstName("Jeff");
-		person3.setLastName("Mayer");
-		person3.setMoney(3000.0);
+		Charity charity3 = new Charity();
+		charity3.setId(2L);
+		charity3.setCreatedBy("owez");
+		charity3.setDescription("sample");// LastName("Smith");
+		charity3.setFromCommunityId("BrainStormers");
+		charity3.setFromUserName("john.smith");
+		charity3.setName("donate");
 
-		persons.add(person1);
-		persons.add(person2);
-		persons.add(person3);
+		charities.add(charity1);
+		charities.add(charity2);
+		charities.add(charity3);
 	}
 
 	/**
 	 * Retrieves all persons
 	 */
-	public List<Person> getAll() {
+	public List<Charity> getAll() {
 		logger.debug("Retrieving all persons");
 
-		return persons;
+		return charities;
 	}
 
 	/**
 	 * Retrieves a single person
 	 */
-	public Person get(Long id) {
+	public Charity get(Long id) {
 		logger.debug("Retrieving person with id: " + id);
 
-		for (Person person : persons) {
-			if (person.getId().longValue() == id.longValue()) {
+		for (Charity charity : charities) {
+			if (charity.getId().longValue() == id.longValue()) {
 				logger.debug("Found record");
-				return person;
+				return charity;
 			}
 		}
 
@@ -70,7 +77,7 @@ public class CharityService {
 	/**
 	 * Adds a new person
 	 */
-	public Person add(Person person) {
+	public Charity create(Charity charity) {
 		logger.debug("Adding new person");
 
 		try {
@@ -78,14 +85,15 @@ public class CharityService {
 			Long newId = 0L;
 			Boolean hasFoundSuitableId = false;
 			while (hasFoundSuitableId == false) {
-				for (int i = 0; i < persons.size(); i++) {
-					if (persons.get(i).getId().longValue() == newId.longValue()) {
+				for (int i = 0; i < charities.size(); i++) {
+					if (charities.get(i).getId().longValue() == newId
+							.longValue()) {
 						newId++;
 						break;
 					}
 
 					// Exit while loop
-					if (i == persons.size() - 1) {
+					if (i == charities.size() - 1) {
 						logger.debug("Assigning id: " + newId);
 						hasFoundSuitableId = true;
 					}
@@ -93,12 +101,12 @@ public class CharityService {
 			}
 
 			// Assign new id
-			person.setId(newId);
+			charity.setId(newId);
 			// Add to list
-			persons.add(person);
+			charities.add(charity);
 
 			logger.debug("Added new person");
-			return person;
+			return charity;
 		} catch (Exception e) {
 			logger.error(e);
 			return null;
@@ -112,10 +120,10 @@ public class CharityService {
 		logger.debug("Deleting person with id: " + id);
 
 		try {
-			for (Person person : persons) {
-				if (person.getId().longValue() == id.longValue()) {
+			for (Charity charity : charities) {
+				if (charity.getId().longValue() == id.longValue()) {
 					logger.debug("Found record");
-					persons.remove(person);
+					charities.remove(charity);
 					return "true";
 				}
 			}
@@ -132,15 +140,15 @@ public class CharityService {
 	/**
 	 * Edits an existing person
 	 */
-	public Boolean edit(Person person) {
-		logger.debug("Editing person with id: " + person.getId());
+	public Boolean edit(Charity charity) {
+		logger.debug("Editing person with id: " + charity.getId());
 
 		try {
-			for (Person p : persons) {
-				if (p.getId().longValue() == person.getId().longValue()) {
+			for (Charity c : charities) {
+				if (c.getId().longValue() == charity.getId().longValue()) {
 					logger.debug("Found record");
-					persons.remove(p);
-					persons.add(person);
+					charities.remove(c);
+					charities.add(charity);
 					return true;
 				}
 			}
