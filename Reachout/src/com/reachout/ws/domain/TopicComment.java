@@ -2,9 +2,11 @@ package com.reachout.ws.domain;
 
 public class TopicComment {
 
+	int topicId;
 	String commentBy;
 	String commentDate;
 	String commentText;
+	
 
 	public String getCommentBy() {
 		return commentBy;
