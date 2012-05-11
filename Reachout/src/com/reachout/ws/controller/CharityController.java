@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reachout.ws.domain.Charity;
 import com.reachout.ws.domain.CharityList;
-import com.reachout.ws.domain.PersonList;
+
 import com.reachout.ws.service.CharityService;
-import com.reachout.ws.service.PersonService;
 
 /**
  * @author RENISH
@@ -27,11 +26,11 @@ import com.reachout.ws.service.PersonService;
 public class CharityController {
 
 	protected static Logger logger = Logger.getLogger("controller");
-	
+
 	@Resource(name = "charityService")
 	private CharityService charityService;
 
-	@RequestMapping(value = "/charities", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/charity", method = RequestMethod.GET/*, headers = "Accept=application/xml,application/json"*/)
 	public @ResponseBody
 	CharityList getCharities() {
 
@@ -42,7 +41,7 @@ public class CharityController {
 		return result;
 	}
 
-	@RequestMapping(value = "/charity/{communityId}/{charityId}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/charity/{communityId}/{charityId}", method = RequestMethod.GET/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
 	Charity getCharity(@PathVariable("communityId") String fromCommunityId,
 			@PathVariable("charityId") Long charityId) {
@@ -51,10 +50,11 @@ public class CharityController {
 		charityService = new CharityService();
 		return charityService.get(fromCommunityId, charityId);
 	}
-	
-	@RequestMapping(value = "/charity/{communityId}/{charityId}", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+
+	@RequestMapping(value = "/charity/{communityId}/{charityId}", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
-	Charity donateToCharity(@PathVariable("communityId") String fromCommunityId,
+	Charity donateToCharity(
+			@PathVariable("communityId") String fromCommunityId,
 			@PathVariable("charityId") Long charityId) {
 
 		// Call service here
@@ -62,7 +62,7 @@ public class CharityController {
 		return charityService.get(fromCommunityId, charityId);
 	}
 
-	@RequestMapping(value = "/charity", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/charity", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
 	Charity createCharity(@RequestBody Charity charity) {
 		logger.debug("Provider has received request to add new Charity");
@@ -72,5 +72,4 @@ public class CharityController {
 		return charityService.create(charity);
 	}
 
-	
 }

@@ -3,6 +3,7 @@
  */
 package com.reachout.ws.controller;
 
+import javax.annotation.Generated;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -34,9 +35,8 @@ public class DiscussionController {
 	@Resource(name = "discussionService")
 	private DiscussionService discussionService;
 
-	@RequestMapping(value = "/topics", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
-	public @ResponseBody
-	TopicList getTopics() {
+	@RequestMapping(value = "/topic", method = RequestMethod.GET/*, headers = "Accept=application/xml, application/json"*/)
+	public @ResponseBody TopicList getTopics() {
 
 		// Call service here
 		TopicList result = new TopicList();
@@ -45,7 +45,7 @@ public class DiscussionController {
 		return result;
 	}
 
-	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.GET/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
 	Topic getTopic(@PathVariable("communityId") String communityId,
 			@PathVariable("topicId") Long topicId) {
@@ -55,7 +55,7 @@ public class DiscussionController {
 		return discussionService.get(communityId, topicId);
 	}
 
-	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
 	String doComment(@PathVariable("communityId") String communityId,
 			@PathVariable("topicId") String topicId, TopicComment comment) {
@@ -65,7 +65,7 @@ public class DiscussionController {
 		return discussionService.doComment(comment, communityId, topicId);
 	}
 
-	@RequestMapping(value = "/topic", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/topic", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
 	public @ResponseBody
 	Topic addTopic(@RequestBody Topic topic) {
 		logger.debug("Provider has received request to add new Topic");
