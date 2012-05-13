@@ -2,7 +2,7 @@ package com.reachout.ws.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="topicComment")
+/*@XmlRootElement(name="topicComment")*/
 public class TopicComment {
 
 	String commentBy;
