@@ -1,8 +1,10 @@
 package com.reachout.ws.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="topicComment")
 public class TopicComment {
 
-	int topicId;
 	String commentBy;
 	String commentDate;
 	String commentText;

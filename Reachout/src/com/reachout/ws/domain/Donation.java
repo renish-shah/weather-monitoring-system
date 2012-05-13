@@ -3,10 +3,13 @@
  */
 package com.reachout.ws.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author RENISH
  * 
  */
+@XmlRootElement(name="donation")
 public class Donation {
 
 	String userCommunityId;
