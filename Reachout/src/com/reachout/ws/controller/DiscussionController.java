@@ -3,7 +3,6 @@
  */
 package com.reachout.ws.controller;
 
-import javax.annotation.Generated;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -28,6 +27,7 @@ import com.reachout.ws.service.PersonService;
  * 
  */
 @Controller
+@RequestMapping("/topics")
 public class DiscussionController {
 
 	protected static Logger logger = Logger.getLogger("controller");
@@ -35,8 +35,9 @@ public class DiscussionController {
 	@Resource(name = "discussionService")
 	private DiscussionService discussionService;
 
-	@RequestMapping(value = "/topic", method = RequestMethod.GET/*, headers = "Accept=application/xml, application/json"*/)
-	public @ResponseBody TopicList getTopics() {
+	@RequestMapping(value = "/topic", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	TopicList getTopics() {
 
 		// Call service here
 		TopicList result = new TopicList();
@@ -45,23 +46,23 @@ public class DiscussionController {
 		return result;
 	}
 
-	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.GET/*, headers = "Accept=application/xml, application/json"*/)
+	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	Topic getTopic(@PathVariable("communityId") String communityId,
 			@PathVariable("topicId") Long topicId) {
 
 		// Call service here
-		DiscussionService discussionService = new DiscussionService();
+		// DiscussionService discussionService = new DiscussionService();
 		return discussionService.get(communityId, topicId);
 	}
 
-	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
+	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	String doComment(@PathVariable("communityId") String communityId,
-			@PathVariable("topicId") String topicId, TopicComment comment) {
+			@PathVariable("topicId") String topicId, @RequestBody TopicComment comment) {
 
 		// Call service here
-		DiscussionService discussionService = new DiscussionService();
+//		DiscussionService discussionService = new DiscussionService();
 		return discussionService.doComment(comment, communityId, topicId);
 	}
 
