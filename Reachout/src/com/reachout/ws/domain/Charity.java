@@ -2,7 +2,7 @@ package com.reachout.ws.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "charity")
+/*@XmlRootElement(name = "charity")*/
 public class Charity {
 
 	Long id;
