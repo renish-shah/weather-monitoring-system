@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author RENISH
  * 
  */
-@XmlRootElement(name="donation")
+/*@XmlRootElement(name="donation")*/
 public class Donation {
 
 	String userCommunityId;
