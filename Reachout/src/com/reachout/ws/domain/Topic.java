@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "topic")
+/*@XmlRootElement(name = "topic")*/
 public class Topic {
 
 	Long id;
