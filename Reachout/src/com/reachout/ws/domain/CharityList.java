@@ -5,13 +5,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="charities")
+/*@XmlRootElement(name="charities")*/
 public class CharityList {
 
-	@XmlElement(required = true)
+	/*@XmlElement(required = true)*/
 	private List<Charity> data;
 
-	@XmlElement(required = false)
+	/*@XmlElement(required = false)*/
 	public List<Charity> getData() {
 		return data;
 	}
