@@ -65,7 +65,7 @@ public class DiscussionController {
 		return discussionService.doComment(comment, communityId, topicId);
 	}
 
-	@RequestMapping(value = "/topic", method = RequestMethod.POST/*, headers = "Accept=application/xml, application/json"*/)
+	@RequestMapping(value = "/topic", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	Topic addTopic(@RequestBody Topic topic) {
 		logger.debug("Provider has received request to add new Topic");
