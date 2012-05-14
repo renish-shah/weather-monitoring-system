@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.reachout.dao.CopyOfSamples;
+import com.reachout.dao.TopicDao;
 import com.reachout.dao.StoreTopic;
 import com.reachout.ws.domain.Topic;
 import com.reachout.ws.domain.TopicComment;
@@ -129,7 +129,7 @@ public class DiscussionService {
 	
 	public List<Topic> searchTopic(Topic topic)
 	{
-		return new CopyOfSamples().retrieveTopicByName(topic.getTopicTitle());
+		return new TopicDao().retrieveTopicByName(topic.getTopicTitle());
 	}
 	
 }

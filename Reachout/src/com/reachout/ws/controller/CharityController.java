@@ -3,6 +3,8 @@
  */
 package com.reachout.ws.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -47,7 +49,7 @@ public class CharityController {
 	@RequestMapping(value = "/charity/{communityId}/{charityId}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	Charity getCharity(@PathVariable("communityId") String fromCommunityId,
-			@PathVariable("charityId") Long charityId) {
+			@PathVariable("charityId") String charityId) {
 
 		// Call service here
 		// charityService = new CharityService();
@@ -58,11 +60,11 @@ public class CharityController {
 	public @ResponseBody
 	String donateToCharity(@RequestBody Donation donation,
 			@PathVariable("communityId") String fromCommunityId,
-			@PathVariable("charityId") Long charityId) {
+			@PathVariable("charityId") String charityId) {
 
 		// Call service here
 		// charityService = new CharityService();
-		return charityService.donateAmount(donation);// (fromCommunityId,
+		return charityService.donateAmount(donation, charityId);// (fromCommunityId,
 														// charityId);
 	}
 
@@ -75,5 +77,18 @@ public class CharityController {
 		// charityService = new CharityService();
 		return charityService.create(charity);
 	}
+	
+	@RequestMapping(value = "/charity/name", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	CharityList searchCharity(@RequestBody Charity charity) {
+		logger.debug("Provider has received request to search Charity");
+
+		CharityList result = new CharityList();
+		result.setData(charityService.searchCharity(charity));
+
+		return result;
+	}
+
+	
 
 }

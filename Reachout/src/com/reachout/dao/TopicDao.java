@@ -11,14 +11,14 @@ import java.util.List;
 import com.reachout.ws.domain.Topic;
 import com.reachout.ws.domain.TopicComment;
 
-public class CopyOfSamples {
+public class TopicDao {
 
 	private static java.sql.Connection con = null;
 
 	public static void main(String[] args) throws SQLException,
 			ClassNotFoundException {
 
-		CopyOfSamples sample = new CopyOfSamples();
+		TopicDao sample = new TopicDao();
 		// sample.createColumnFamily();
 
 		Topic topic = new Topic();
@@ -104,7 +104,7 @@ public class CopyOfSamples {
 
 		Connection con = getCassandraConnection();
 
-		int topicId = new CopyOfSamples().getColumnCount("topic") + 1;
+		int topicId = new TopicDao().getColumnCount("topic") + 1;
 
 		// (KEY text primary key, topic_title varchar, topic_desc varchar,
 		// created_date varchar,community_id varchar, created_by varchar)
@@ -133,7 +133,7 @@ public class CopyOfSamples {
 
 		Connection con = getCassandraConnection();
 
-		int commentId = new CopyOfSamples().getColumnCount("topicComment") + 1;
+		int commentId = new TopicDao().getColumnCount("topicComment") + 1;
 
 		// topicComment"
 		// +

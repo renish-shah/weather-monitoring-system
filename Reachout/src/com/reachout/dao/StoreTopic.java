@@ -137,7 +137,7 @@ public class StoreTopic {
 	public List<Topic> getAllTopics() {
 
 		try {
-			return new CopyOfSamples().listTopics();
+			return new TopicDao().listTopics();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,7 +164,7 @@ public class StoreTopic {
 
 
 		try {
-			return new CopyOfSamples().populateComments(comment, topicId);
+			return new TopicDao().populateComments(comment, topicId);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,20 +179,20 @@ public class StoreTopic {
 
 	public List<Topic> searchTopic(String topicTitle) {
 
-		return new CopyOfSamples().retrieveTopicByName(topicTitle);
+		return new TopicDao().retrieveTopicByName(topicTitle);
 	}
 
 	
 	public Topic retrieveTopic(String topicId) {
 
-		return new CopyOfSamples().retrieveTopicById(topicId);
+		return new TopicDao().retrieveTopicById(topicId);
 	}
 
 	public Topic addTopicIntoDB(Topic topic) {
 		long startTime = System.currentTimeMillis();
 
 		try {
-			return new CopyOfSamples().populateData(topic);
+			return new TopicDao().populateData(topic);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
