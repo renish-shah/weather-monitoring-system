@@ -49,7 +49,7 @@ public class DiscussionController {
 	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	Topic getTopic(@PathVariable("communityId") String communityId,
-			@PathVariable("topicId") Long topicId) {
+			@PathVariable("topicId") String topicId) {
 
 		// Call service here
 		// DiscussionService discussionService = new DiscussionService();
