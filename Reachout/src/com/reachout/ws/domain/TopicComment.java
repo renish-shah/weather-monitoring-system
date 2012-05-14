@@ -16,7 +16,7 @@ public class TopicComment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	
 	@Column(name = "commentId")
 	private String commentId;
 	@Column(name = "commentBy")

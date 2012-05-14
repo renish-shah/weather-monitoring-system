@@ -12,13 +12,23 @@
 	2","commentDate":"25th April,2012"}],"createdBy":"reeya","communityId":"BrainStormers","createdDate":"April 
 	21,2012","id":1,"title":"Sample Title 2","description":"sample"} -->
 
+<!-- Topic
+{
+    "createdBy": "reeya",
+    "communityID": "BrainStormers",
+    "createdDate": "April212012",
+    "topicTitle": "Sampl2",
+    "topicDescription": "sample"
+}
+ -->
+
 <!-- {"commentBy":"Owez","commentText":"Sample Comment 2","commentDate":"25th 
 	April,2012"} -->
 
 <!-- {"comments":[{"commentBy":"Owez","commentText":"SC2","commentDate":"25"}],"createdBy":"reeni","communityId":"Br","createdDate":"April 
 	21","title":"Sample","description":"sample"} -->
-	
-<!-- http://localhost:8080/ReachOut/rest/topics/topic --> 
+
+<!-- http://localhost:8080/ReachOut/rest/topics/topic -->
 
 <!-- http://localhost:8080/ReachOut/rest/topics/topic/BrainStormers/1 -->
 

@@ -59,10 +59,11 @@ public class DiscussionController {
 	@RequestMapping(value = "/topic/{communityId}/{topicId}", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	public @ResponseBody
 	String doComment(@PathVariable("communityId") String communityId,
-			@PathVariable("topicId") String topicId, @RequestBody TopicComment comment) {
+			@PathVariable("topicId") String topicId,
+			@RequestBody TopicComment comment) {
 
 		// Call service here
-//		DiscussionService discussionService = new DiscussionService();
+		// DiscussionService discussionService = new DiscussionService();
 		return discussionService.doComment(comment, communityId, topicId);
 	}
 
@@ -73,6 +74,20 @@ public class DiscussionController {
 
 		// Call service to here
 		return discussionService.create(topic);
+	}
+
+	@RequestMapping(value = "/topic/name", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	public @ResponseBody
+	TopicList searchTopic(@RequestBody Topic topic) {
+		logger.debug("Provider has received request to add new Topic");
+
+		// Call service to here
+
+		TopicList result = new TopicList();
+		result.setData(discussionService.searchTopic(topic));
+
+		return result;
+
 	}
 
 }
