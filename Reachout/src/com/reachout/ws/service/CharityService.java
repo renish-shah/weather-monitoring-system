@@ -68,7 +68,7 @@ public class CharityService {
 
 		try {
 			charities.addAll(charityDao.listLocalCharities());
-			charities.addAll(charityDao.listRemoteCharities());
+			//charities.addAll(charityDao.listRemoteCharities());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
