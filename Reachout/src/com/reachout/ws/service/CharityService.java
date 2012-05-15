@@ -61,14 +61,14 @@ public class CharityService {
 	 * Retrieves all persons
 	 */
 	public List<Charity> getAll() {
-		logger.debug("Retrieving all persons");
+		logger.debug("Retrieving all Charities");
 
 		CharityDao charityDao = new CharityDao();
 		List<Charity> charities = new ArrayList<Charity>();
 
 		try {
 			charities.addAll(charityDao.listLocalCharities());
-			//charities.addAll(charityDao.listRemoteCharities());
+			charities.addAll(charityDao.listRemoteCharities());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
