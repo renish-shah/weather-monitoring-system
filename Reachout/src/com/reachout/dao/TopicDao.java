@@ -19,7 +19,7 @@ public class TopicDao {
 			ClassNotFoundException {
 
 		TopicDao sample = new TopicDao();
-		// sample.createColumnFamily();
+		sample.createColumnFamily();
 
 		Topic topic = new Topic();
 		topic.setCommunityID("communityID");
