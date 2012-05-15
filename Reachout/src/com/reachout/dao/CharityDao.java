@@ -21,7 +21,7 @@ public class CharityDao {
 			ClassNotFoundException {
 
 		CharityDao sample = new CharityDao();
-		// sample.createCharityColumnFamily();
+		sample.createCharityColumnFamily();
 
 		Charity charity = new Charity();
 		charity.setAmount("22222");
@@ -212,7 +212,7 @@ public class CharityDao {
 		return charities;
 	}
 
-	public List<Charity> listRemoteCharities() {
+	public List<Charity> listRemoteCharities(int noOfHopes) {
 
 		List<String> listOfRemoteCharities = new DistributedDiscovery()
 				.ReadConfigFile();
