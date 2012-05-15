@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.reachout.ws.domain.Charity;
 import com.reachout.ws.domain.CharityList;
 import com.reachout.ws.domain.Donation;
-import com.reachout.ws.domain.Person;
+import com.reachout.ws.domain.EventCommunity;
 
 import com.reachout.ws.service.CharityService;
 
@@ -27,7 +27,7 @@ import com.reachout.ws.service.CharityService;
  * 
  */
 @Controller
-@RequestMapping("/charities")
+/*@RequestMapping("/charities")*/
 public class CharityController {
 
 	protected static Logger logger = Logger.getLogger("controller");
