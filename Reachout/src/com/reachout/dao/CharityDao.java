@@ -212,7 +212,7 @@ public class CharityDao {
 		return charities;
 	}
 
-/*	public List<Charity> listRemoteCharities() {
+	public List<Charity> listRemoteCharities() {
 
 		List<String> listOfRemoteCharities = new DistributedDiscovery()
 				.ReadConfigFile();
@@ -230,7 +230,7 @@ public class CharityDao {
 		return remoteCharities;
 
 	}
-*/
+
 	public Charity retrieveCharityById(String charityId) {
 
 		// String data = "create columnfamily charity"
