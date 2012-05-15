@@ -10,7 +10,7 @@ import com.reachout.dao.CharityDao;
 import com.reachout.dao.TopicDao;
 import com.reachout.ws.domain.Charity;
 import com.reachout.ws.domain.Donation;
-import com.reachout.ws.domain.Person;
+import com.reachout.ws.domain.EventCommunity;
 import com.reachout.ws.domain.Topic;
 
 @Service("charityService")
@@ -62,13 +62,18 @@ public class CharityService {
 	 */
 	public List<Charity> getAll() {
 		logger.debug("Retrieving all persons");
+
+		CharityDao charityDao = new CharityDao();
+		List<Charity> charities = new ArrayList<Charity>();
+
 		try {
-			return new CharityDao().listCharities();
+			charities.addAll(charityDao.listLocalCharities());
+			charities.addAll(charityDao.listRemoteCharities());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return charities;
 
 	}
 
@@ -118,11 +123,9 @@ public class CharityService {
 		return null;
 
 	}
-	
-	public List<Charity> searchCharity(Charity charity)
-	{
+
+	public List<Charity> searchCharity(Charity charity) {
 		return new CharityDao().retrieveCharityByName(charity.getName());
 	}
 
-	
 }
