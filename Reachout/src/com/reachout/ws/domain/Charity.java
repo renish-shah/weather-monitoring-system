@@ -12,6 +12,7 @@ public class Charity {
 	String fromCommunityId;
 	String fromUserName;
 	String amount;
+	
 	public String getCharityID() {
 		return charityID;
 	}
