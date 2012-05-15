@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reachout.ws.domain.CharityList;
-import com.reachout.ws.domain.PersonList;
+import com.reachout.ws.domain.EventList;
 import com.reachout.ws.domain.Topic;
 import com.reachout.ws.domain.TopicComment;
 import com.reachout.ws.domain.TopicList;
 import com.reachout.ws.service.CharityService;
 import com.reachout.ws.service.DiscussionService;
-import com.reachout.ws.service.PersonService;
+import com.reachout.ws.service.EventService;
 
 /**
  * @author RENISH
  * 
  */
 @Controller
-@RequestMapping("/topics")
+/*@RequestMapping("/topics")*/
 public class DiscussionController {
 
 	protected static Logger logger = Logger.getLogger("controller");
