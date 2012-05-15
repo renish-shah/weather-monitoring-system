@@ -34,16 +34,16 @@ public class DistributedDiscovery {
 			Properties prop = new Properties();
 			prop.load(is);
 			String nodeA_charity = prop.getProperty(NODE_A_CHARITY);
-			String nodeB_charity = prop.getProperty(NODE_B_CHARITY);
+			//String nodeB_charity = prop.getProperty(NODE_B_CHARITY);
 
 			listOfRemoteCharities = new ArrayList<String>();
 			listOfRemoteCharities.add(nodeA_charity);
-			listOfRemoteCharities.add(nodeB_charity);
+			//listOfRemoteCharities.add(nodeB_charity);
 
 			is.close();
 
 			System.out.println("Node A Path :" + nodeA_charity);
-			System.out.println("Node B Path :" + nodeB_charity);
+			//System.out.println("Node B Path :" + nodeB_charity);
 			/* code to use values read from the file */
 		} catch (Exception e) {
 			System.out.println("Failed to read from " + PROP_FILE + " file.");
