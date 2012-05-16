@@ -221,9 +221,11 @@ public class CharityDao {
 		
 		List<Charity> remoteCharities=new ArrayList<Charity>();
 		
+		String uri="";
 		for (String remoteChariy : listOfRemoteCharities) {
-
-			remoteCharities.addAll(restClient.callService(remoteChariy));
+			uri=remoteChariy+"/"+noOfHopes;
+			System.out.println(""+uri);
+			remoteCharities.addAll(restClient.callService(uri));
 			
 		}
 
