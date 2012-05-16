@@ -22,7 +22,7 @@ public class EventDao {
 			ClassNotFoundException {
 
 		EventDao sample = new EventDao();
-//		sample.createEventColumnFamily();
+		sample.createEventColumnFamily();
 
 		EventCommunity event = new EventCommunity();
 		event.setDate("22222");
