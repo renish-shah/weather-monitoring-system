@@ -31,7 +31,7 @@ public class JavaRestClient {
 	public List<Charity> callService(String uri) {
 		try {
 
-			URL url = new URL(uri);
+			URL url = new URL(""+uri);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -68,7 +68,7 @@ public class JavaRestClient {
 
 	}
 
-	public void callPostHttp(String uri) {
+/*	public void callPostHttp(String uri) {
 
 		try {
 
@@ -85,11 +85,11 @@ public class JavaRestClient {
 
 			HttpResponse response = httpClient.execute(postRequest);
 
-			/*
+			
 			 * if (response.getStatusLine().getStatusCode() != 201) { throw new
 			 * RuntimeException("Failed : HTTP error code : " +
 			 * response.getStatusLine().getStatusCode()); }
-			 */
+			 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					(response.getEntity().getContent())));
 
@@ -112,8 +112,8 @@ public class JavaRestClient {
 		}
 
 	}
-
-	public List<Charity> callPostService(String uri) {
+*/
+	/*public List<Charity> callPostService(String uri) {
 		try {
 
 			URL url = new URL(uri);
@@ -131,11 +131,11 @@ public class JavaRestClient {
 			os.write(input.getBytes());
 			os.flush();
 
-			/*
+			
 			 * if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) { throw
 			 * new RuntimeException("Failed : HTTP error code : " +
 			 * conn.getResponseCode()); }
-			 */
+			 
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					(conn.getInputStream())));
@@ -160,7 +160,7 @@ public class JavaRestClient {
 		return null;
 
 	}
-
+*/
 	/**
 	 * @param args
 	 * @throws IOException
@@ -169,7 +169,7 @@ public class JavaRestClient {
 
 		String uri = "http://localhost:8080/ReachOut/charity";
 		// String uri = "http://192.168.1.84:8080/ReachOut/charity";
-		new JavaRestClient().callPostService(uri);
+		//new JavaRestClient().callPostService(uri);
 		// new JavaRestClient().callPostHttp(uri);
 
 		// List<Charity> list1 = new JavaRestClient().callService(uri);
